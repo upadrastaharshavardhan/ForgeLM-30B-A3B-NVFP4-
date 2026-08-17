@@ -1,151 +1,740 @@
-NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4
-Model Summary
-Total Parameters	30B (3B active)
-Architecture	MoE - Mamba-2 + MoE + Attention hybrid
-Context Length	Up to 1M tokens
-Supported Languages	English (and coding languages), Spanish, French, German, Italian, Japanese
-Recommended Sampling	Temperature 1.0, Top_P 0.95
-Best For	Long-running autonomous agents, sub-agent workhorse deployments, and agentic workflows
-License	OpenMDW License Agreement, version 1.1
-Release Date	August 11, 2026
-Model Overview
-Model Developer: NVIDIA Corporation
+# ⚡ NVIDIA Nemotron 3.5 Lightning 30B A3B NVFP4
 
-Model Dates: December 2025 - May 2026
+<p align="center">
 
-Data Freshness:
+**A 30B-parameter Mixture-of-Experts reasoning model with only 3B active parameters**
 
-The pre-training data has a cutoff date of September 2025.
-The post-training data has a cutoff date of May 2026.
-What is Nemotron?
-NVIDIA Nemotron™ is a family of open models with open weights, training data, and recipes, delivering leading efficiency and accuracy for building specialized AI agents.
+**Hybrid Mamba-2 + MoE + Attention Architecture • 1M Token Context • NVFP4**
 
-Description
-NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 is a large language model (LLM) trained by NVIDIA.
+<br>
 
-The model employs a hybrid Mixture-of-Experts architecture, utilizing interleaved Mamba-2 and MoE layers, along with select Attention layers. The Lightning 3.5 model is released alongside a number of speculative decoding methods for faster text generation. The model has 3B active parameters and 30B parameters in total.
+<img src="https://img.shields.io/badge/NVIDIA-Nemotron-76B900?style=for-the-badge&logo=nvidia&logoColor=white">
+<img src="https://img.shields.io/badge/30B-Parameters-76B900?style=for-the-badge">
+<img src="https://img.shields.io/badge/3B-Active-00AEEF?style=for-the-badge">
+<img src="https://img.shields.io/badge/NVFP4-Quantized-8A2BE2?style=for-the-badge">
+<img src="https://img.shields.io/badge/Context-1M%20Tokens-FF6B35?style=for-the-badge">
 
-This model is ready for commercial use.
+</p>
 
-License and Terms of Use:
-GOVERNING TERMS: The trial service is governed by the NVIDIA API Trial Terms of Service. Use of this model is governed by the OpenMDW License Agreement, version 1.1.
+---
 
-Benchmarks
-Reasoning Benchmark Evaluations
-We evaluated our model on the following benchmarks:
+## 🧠 Overview
 
-Task	Nemotron-3.5-Lightning-30B-A3B-BF16	Nemotron-3.5-Lightning-30B-A3B-NVFP4
-General Knowledge		
-MMLU Pro	81.94	81.62
-AA-Omniscience	17.50	16.63
-Reasoning		
-GPQA Diamond (no tools)	75.44	75.57
-HLE (text-only, no tools)	11.72	10.47
-SciCode	32.60	31.38
-Coding & Agentic		
-SWE-bench Verified	51.56	52.80
-SWE-bench Multilingual	39.33	36.47
-Terminal-Bench 2.1	24.58	23.46
-PinchBench	85.37	83.43
-BrowseComp	36.97	36.81
-τ³-bench (Banking)	9.28	9.48
-GDPval-AA-V2	832	865
-Instruction Following		
-IFBench (loose)	71.88	72.88
-Long Context		
-AA-LCR	52.00	49.19
-For reproducibility, the evaluation recipes, installation instructions, and commands for NVIDIA Nemotron 3.5 Lightning were collected and published in NeMo Gym. The reported results cover the release evaluation suite, including knowledge and reasoning, instruction following, coding, agentic, tool-use, and long-context. Most evaluations use NeMo Gym-native harnesses while a small subset, including SWE-Bench and Terminal-Bench, used NeMo Evaluator natively. The published recipes specify the benchmark-specific containers, prompts, inference parameters, parser configurations, and scoring settings used to produce the results.
+**NVIDIA Nemotron 3.5 Lightning 30B A3B NVFP4** is a high-efficiency large language model designed for **reasoning, coding, tool use, long-context workloads, and autonomous AI agents**.
 
-These numbers were measured with and apply to the official NVFP4 checkpoint
+The model combines:
 
-Deployment Geography: Global
-Use Case
-NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 is a general purpose reasoning and chat model intended to be used in English and coding languages. Other non-English languages (Spanish, French, German, Italian, Japanese) are also supported. Intended for developers designing AI Agent systems, chatbots, RAG systems, and other AI-powered applications. Also suitable for typical instruction-following tasks.
+> **Mamba-2 + Mixture-of-Experts + Transformer Attention + Multi-Token Prediction**
 
-Release Date
-Hugging Face — 08/11/2026
-Build.NVIDIA.com — 08/11/2026
-Model Architecture
-Architecture Type: Mixture-of-Experts Hybrid (Mamba + Transformer)
-Network Architecture: Nemotron-3-Lightning + Multi-Token Prediction (MTP)
-Number of model parameters: 30B Total / 3B Active
-Model Design
-The model was pre-trained with over 20T tokens and supports up to 1M context length. The pre-training phase used an NVFP4 recipe. The model includes Multi-Token Prediction (MTP) layers, which predict multiple future tokens to provide richer training signals.
+into a hybrid architecture optimized for long-running agentic workloads.
 
-Training Methodology
-Stage 1: Pre-Training
+Despite having **30 billion total parameters**, only approximately **3 billion parameters are active per inference step**, enabling a substantially more efficient compute profile than a dense 30B model.
 
-NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 model was pre-trained using an NVFP4 recipe with crawled and synthetic code, math, science, and general knowledge data.
-Software used for pre-training: Megatron-LM
-Stage 2: Continued Pre-Training for Multi-Token Prediction (MTP)
+The model supports context windows of up to **1 million tokens** and is particularly targeted at:
 
-The model underwent a continued pre-training phase to train its Multi-Token Prediction (MTP) layers. In this stage, MTP heads learn to predict multiple future tokens, providing richer training signals to the base model. This phase aligns the MTP layers with the base model's distribution.
-Stage 3: Supervised Fine-Tuning
+* 🤖 Autonomous AI agents
+* 🧩 Multi-agent systems
+* 🔧 Tool-calling workflows
+* 💻 Software engineering agents
+* 📚 Long-context reasoning
+* 🔎 RAG systems
+* 🧠 Sub-agent workloads
+* 💬 Conversational AI
+* ⚙️ Enterprise AI applications
 
-The model was further fine-tuned on synthetic code, math, science, tool calling, instruction following, structured outputs, and general knowledge data. This stage incorporated data designed to support long-range retrieval and multi-document aggregation.
-Stage 4: Reinforcement Learning
+The uploaded model specification identifies the intended use as general-purpose reasoning/chat with strong emphasis on agent systems, chatbots, RAG, and instruction-following applications.
 
-The model underwent multi-environment reinforcement learning using GRPO (Group Relative Policy Optimization) across math, code, science, instruction following, multi-step tool use, multi-turn conversations, and structured output environments. It utilized an asynchronous RL architecture that decouples training from inference and leverages MTP to accelerate rollout generation.
-Software used for reinforcement learning: NeMo RL, NeMo Gym
-Stage 5: Post-training Quantization (PTQ)
+---
 
-We performed post-training quantization (PTQ) with Nvidia Model Optimizer using the following recipe: Four Over Six NVFP4 (a variant of static MSE calibration) W4A16 on routed and shared experts, FP8 per-tensor dynamic scales on mamba in_proj/out_proj and KV cache. We used a subset of the Nemotron Ultra validation set for calibration with 1000 samples at 32k token length.
-NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 is a result of the above work.
+# 🚀 Why Lightning?
 
-Input
-Input Type(s): Text
-Input Format(s): String
-Input Parameters: One-Dimensional (1D): Sequences
-Other Properties Related to Input: Maximum context length up to 1M tokens. Supported languages include English, Spanish, French, German, Italian, and Japanese.
-Output
-Output Type(s): Text
-Output Format: String
-Output Parameters: One-Dimensional (1D): Sequences
-Other Properties Related to Output: Maximum context length up to 1M tokens
-Our AI models are designed and/or optimized to run on NVIDIA GPU-accelerated systems. By leveraging NVIDIA's hardware (e.g. GPU cores) and software frameworks (e.g., CUDA libraries), the model achieves faster training and inference times compared to CPU-only solutions.
+Traditional large language models often activate the majority of their parameters for every token.
 
-Software Integration
-Runtime Engine(s): PyTorch
-Supported Hardware Microarchitecture Compatibility: NVIDIA Blackwell; NVIDIA Hopper (NVFP4 / W4A16); NVIDIA Ampere (W4A16)
-Preferred/Supported Operating System(s): Linux
-The integration of foundation and fine-tuned models into AI systems requires additional testing using use-case-specific data to ensure safe and effective deployment. Following the V-model methodology, iterative testing and validation at both unit and system levels are essential to mitigate risks, meet technical and functional requirements, and ensure compliance with safety and ethical standards before deployment.
+Nemotron 3.5 Lightning takes a different approach.
 
-Model Version(s)
-NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 — 1.0-preview (08/11/2026)
-Training, Testing, and Evaluation Datasets
-Training
-Data Modality: Text Training Data Size: More than 20 Trillion Tokens Dataset partition: Training [100%], testing [0%], validation [0%] Time period for training data collection: 2013 to December 2025 Time period for testing data collection: 2013 to December 2025 Time period for validation data collection: 2013 to December 2025 Data Collection Method by dataset: Hybrid: Automated, Manually-Collected, Synthetic Labeling Method by dataset: Hybrid: Automated, Manually-Labeled, Synthetic
+```text
+                    ┌─────────────────────────┐
+                    │   User / Agent Request   │
+                    └────────────┬────────────┘
+                                 │
+                                 ▼
+                    ┌─────────────────────────┐
+                    │   1M Token Context      │
+                    └────────────┬────────────┘
+                                 │
+                                 ▼
+              ┌─────────────────────────────────────┐
+              │       Hybrid Lightning Core         │
+              │                                     │
+              │   Mamba-2 ── MoE ── Attention       │
+              │       │       │        │             │
+              │       └───────┼────────┘             │
+              │               ▼                      │
+              │       3B Active Parameters           │
+              └────────────────┬────────────────────┘
+                               │
+                               ▼
+                  ┌─────────────────────────┐
+                  │ Multi-Token Prediction  │
+                  └────────────┬────────────┘
+                               │
+                               ▼
+                    ┌─────────────────────────┐
+                    │ Agent / Tool / Response │
+                    └─────────────────────────┘
+```
 
-NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 is pre-trained on a large corpus of high-quality curated and synthetically-generated data. It is trained in the English language, as well as 19 other spoken languages and 43 programming languages. Our sources cover a variety of document types such as: webpages, dialogue, articles, and other written materials. The corpus spans domains including legal, math, science, finance, and more. We also include a small portion of question-answering, and alignment style data to improve model accuracy. The model was pre-trained for more than 20 trillion tokens.
+The model contains **30B total parameters with 3B active parameters**, and its architecture is described as a hybrid Mamba + Transformer / MoE design.
 
-The post-training corpus for NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4 consists of high-quality curated and synthetically-generated data. Primary languages used for post-training include English, French, German, Italian, Japanese, Spanish, and Chinese.
+---
 
-These datasets, such as FinePDFs, EssentialWeb, HotpotQA, SQuAD, and HelpSteer3, do not collectively or exhaustively represent all demographic groups (and proportionally therein). For instance, these datasets do not contain explicit mentions of demographic classes such as age, gender, or ethnicity in 64-99% of samples, depending on the source. In the subset where such terms are present, document-based datasets (FinePDFs and EssentialWeb) contain representational skews, such as references to "male" outnumbering those to "female", and mentions of "White" as the most frequent among ethnic identifiers (comprising 43-44% of ethnicity mentions). To mitigate these imbalances, we recommend considering evaluation techniques such as bias audits, fine-tuning with demographically balanced datasets, and mitigation strategies like counterfactual data augmentation to align with the desired model behavior. This evaluation used a 3,000-sample subset per dataset, identified as the optimal threshold for maximizing embedder accuracy.
+# 📊 Model at a Glance
 
-During post-training, we generate synthetic data by distilling trajectories, solutions, and translations from strong teacher models and agent systems, often grounded in real tasks or documents and aggressively filtered for quality. For math, code, and science, we start from curated problem sets and use open source permissive models such as GPT-OSS-120B to produce step-by-step reasoning traces, candidate solutions, best-of-n selection traces, and verified CUDA kernels. For long-context and science, we build synthetic QA and reasoning data by retrieving passages from long documents, generating MCQ/OpenQA questions and answers, and paraphrasing them into multiple prompt/response formats to ensure diversity. Across all pipelines we stack automated verification—compilers, numerical checks, language identification—to ensure our data is high quality.
+| Property                    | Specification                               |
+| --------------------------- | ------------------------------------------- |
+| **Model**                   | NVIDIA Nemotron 3.5 Lightning 30B A3B NVFP4 |
+| **Developer**               | NVIDIA Corporation                          |
+| **Parameters**              | 30B total                                   |
+| **Active Parameters**       | 3B                                          |
+| **Architecture**            | Hybrid Mamba-2 + MoE + Attention            |
+| **Network**                 | Nemotron-3-Lightning + MTP                  |
+| **Context Length**          | Up to 1M tokens                             |
+| **Quantization**            | NVFP4                                       |
+| **Runtime**                 | PyTorch                                     |
+| **Acceleration**            | Dynamo + vLLM                               |
+| **Primary Hardware**        | NVIDIA GPU                                  |
+| **Recommended Temperature** | 1.0                                         |
+| **Recommended Top-P**       | 0.95                                        |
+| **Primary Focus**           | Agentic AI / Reasoning / Coding             |
+| **Release**                 | August 11, 2026                             |
+| **License**                 | OpenMDW License Agreement 1.1               |
 
-For all domains, we apply a unified data filtering pipeline to ensure that only high-quality, license-compliant, and verifiable samples are used for post-training. We first discard malformed examples using structural checks (e.g., missing tool definitions when tool calls are present). We then aggressively filter reasoning traces exhibiting pathological repetition, such as repeated n-grams within a sliding window or across the entire trajectory, which we found to be a strong indicator of malformed or low-quality reasoning. Finally, based on internal audits of synthetically generated datasets, we observed that some teacher models occasionally produce reasoning traces and final responses that implicitly align with specific political entities or promote nationalistic narratives. To mitigate this, we apply targeted keyword- and regex-based filters and remove all trajectories matching such behavior.
+## The official specification reports a 30B/3B parameter configuration, 1M context, PyTorch runtime, and NVIDIA Blackwell/Hopper/Ampere compatibility under the listed precision modes.
 
-Alongside the model, we release our final pre-training and post-training data, as outlined in this section. For ease of analysis, there is a sample set that is ungated. For all remaining code, math and multilingual data, gating and approval is required, and the dataset is permissively licensed for model training purposes.
+# 🏗️ Architecture
 
-For Detailed Dataset Information: Click here!
-Testing Datasets:
-Data Collection Method by dataset
+Nemotron 3.5 Lightning uses a **hybrid Mixture-of-Experts architecture**.
 
-Hybrid: Automated, Manually-Collected, Synthetic
-Labeling Method by dataset
-Hybrid: Automated, Manually-Labeled, Synthetic
-Properties: This corpus comprises a mix of high-quality standard benchmarks and test suites for modern agentic AI. These benchmarks test model capabilities on tasks such as tool-calling and instruction following.
-Evaluation Datasets:
-Data Collection Method by dataset
+```text
+                 NVIDIA Nemotron 3.5 Lightning
+                              │
+                              ▼
+                  ┌───────────────────────┐
+                  │   Input Token Stream  │
+                  └───────────┬───────────┘
+                              │
+                              ▼
+                   ┌─────────────────────┐
+                   │      Mamba-2        │
+                   │ Long-range sequence │
+                   │      modeling       │
+                   └──────────┬──────────┘
+                              │
+                              ▼
+                   ┌─────────────────────┐
+                   │        MoE          │
+                   │ Sparse expert       │
+                   │     routing         │
+                   └──────────┬──────────┘
+                              │
+                              ▼
+                   ┌─────────────────────┐
+                   │     Attention       │
+                   │ Context reasoning  │
+                   └──────────┬──────────┘
+                              │
+                              ▼
+                   ┌─────────────────────┐
+                   │ Multi-Token         │
+                   │ Prediction (MTP)   │
+                   └──────────┬──────────┘
+                              │
+                              ▼
+                    ┌────────────────────┐
+                    │ Final Generation   │
+                    └────────────────────┘
+```
 
-Hybrid: Automated, Manually-Collected, Synthetic
-Labeling Method by dataset
-Hybrid: Automated, Manually-Labeled, Synthetic
-Properties: This corpus comprises a mix of high-quality standard benchmarks and test suites for modern agentic AI. These benchmarks test model capabilities on tasks such as tool-calling and instruction following.
-Inference
-Acceleration Engine: Dynamo + vLLM
-Test Hardware: NVIDIA Hopper - H100
+## The model uses **interleaved Mamba-2 and MoE layers with selected Attention layers**, together with Multi-Token Prediction to improve training signals and generation efficiency.
+
+# ⚡ Multi-Token Prediction
+
+A key component of the Lightning architecture is **Multi-Token Prediction (MTP)**.
+
+Instead of learning only to predict the immediate next token, MTP heads learn to predict multiple future tokens.
+
+```text
+Traditional:
+
+Token₁ → Token₂ → Token₃ → Token₄
+
+
+Lightning MTP:
+
+Token₁ ─────┬────→ Token₂
+            ├────→ Token₃
+            └────→ Token₄
+```
+
+This provides richer training signals and is also used to accelerate rollout generation during reinforcement learning.
+
+The model documentation describes a dedicated continued-pretraining stage for aligning the MTP heads with the base model distribution.
+
+---
+
+# 🧪 Training Pipeline
+
+The training process consists of multiple stages.
+
+```text
+┌───────────────────────────┐
+│       01 Pre-Training     │
+│                           │
+│ Code • Math • Science     │
+│ General Knowledge         │
+└─────────────┬─────────────┘
+              │
+              ▼
+┌───────────────────────────┐
+│    02 MTP Training        │
+│                           │
+│ Multi-Token Prediction    │
+└─────────────┬─────────────┘
+              │
+              ▼
+┌───────────────────────────┐
+│   03 Supervised FT        │
+│                           │
+│ Code • Math • Tools       │
+│ Structured Outputs        │
+└─────────────┬─────────────┘
+              │
+              ▼
+┌───────────────────────────┐
+│  04 Reinforcement Learning│
+│                           │
+│ GRPO + Multi-Environment  │
+└─────────────┬─────────────┘
+              │
+              ▼
+┌───────────────────────────┐
+│       05 PTQ              │
+│                           │
+│ NVFP4 / W4A16             │
+└─────────────┬─────────────┘
+              │
+              ▼
+        🚀 Final Model
+```
+
+The documented training pipeline includes pre-training, MTP continued pre-training, supervised fine-tuning, GRPO-based reinforcement learning, and post-training quantization.
+
+---
+
+# 📚 Training Data
+
+The model was pretrained on **more than 20 trillion tokens**.
+
+The training corpus combines:
+
+* Curated datasets
+* Synthetic data
+* Web content
+* Code
+* Mathematics
+* Science
+* General knowledge
+* Dialogue
+* Articles
+* QA data
+* Alignment-oriented data
+
+The documented corpus spans multiple domains and programming languages, with automated, manually collected, and synthetic data sources.
+
+Synthetic post-training data was generated through teacher-model distillation, trajectory generation, solution generation, translation, and automated verification pipelines.
+
+---
+
+# 📈 Benchmark Results
+
+## Reasoning & General Intelligence
+
+| Benchmark          |  BF16 |     NVFP4 |
+| ------------------ | ----: | --------: |
+| **MMLU Pro**       | 81.94 | **81.62** |
+| **AA-Omniscience** | 17.50 |     16.63 |
+| **GPQA Diamond**   | 75.44 | **75.57** |
+| **HLE**            | 11.72 |     10.47 |
+| **SciCode**        | 32.60 |     31.38 |
+
+## Coding & Agentic Workloads
+
+| Benchmark                  |  BF16 |     NVFP4 |
+| -------------------------- | ----: | --------: |
+| **SWE-bench Verified**     | 51.56 | **52.80** |
+| **SWE-bench Multilingual** | 39.33 |     36.47 |
+| **Terminal-Bench 2.1**     | 24.58 |     23.46 |
+| **PinchBench**             | 85.37 |     83.43 |
+| **BrowseComp**             | 36.97 |     36.81 |
+| **τ³-bench Banking**       |  9.28 |  **9.48** |
+| **GDPval-AA-V2**           |   832 |   **865** |
+
+## Instruction Following
+
+| Benchmark   |  BF16 |     NVFP4 |
+| ----------- | ----: | --------: |
+| **IFBench** | 71.88 | **72.88** |
+
+## Long Context
+
+| Benchmark  |  BF16 | NVFP4 |
+| ---------- | ----: | ----: |
+| **AA-LCR** | 52.00 | 49.19 |
+
+The benchmark values above are reproduced from the uploaded model specification, which notes that these results apply to the official NVFP4 checkpoint.
+
+---
+
+# 🎯 Designed For Agentic AI
+
+Nemotron 3.5 Lightning is particularly interesting for **AI agent infrastructure**.
+
+### 🤖 Autonomous Agents
+
+```text
+User
+ │
+ ▼
+Planner Agent
+ │
+ ├── Research Agent
+ │
+ ├── Coding Agent
+ │
+ ├── Browser Agent
+ │
+ ├── Data Agent
+ │
+ └── Verification Agent
+          │
+          ▼
+      Nemotron
+          │
+          ▼
+     Final Result
+```
+
+Potential workloads include:
+
+* Autonomous software engineering
+* Browser agents
+* Research agents
+* Coding copilots
+* RAG agents
+* Multi-agent orchestration
+* Tool-calling systems
+* Long-running workflows
+* Enterprise assistants
+
+---
+
+# 🔍 Long-Context Intelligence
+
+With support for up to **1 million tokens**, the model is designed for workloads where conventional context windows become restrictive.
+
+Example:
+
+```text
+                    1M TOKEN CONTEXT
+┌──────────────────────────────────────────────────────┐
+│                                                      │
+│ Repository                                            │
+│ Documentation                                         │
+│ API Specifications                                    │
+│ Test Cases                                            │
+│ Logs                                                  │
+│ Architecture Docs                                     │
+│ Tickets                                               │
+│ Previous Agent Runs                                   │
+│ Knowledge Base                                        │
+│                                                       │
+└──────────────────────────┬───────────────────────────┘
+                           │
+                           ▼
+                    Nemotron Lightning
+                           │
+                           ▼
+                   Contextual Reasoning
+                           │
+                           ▼
+                    Agentic Decision
+```
+
+This makes the architecture particularly relevant to **large repositories, enterprise documentation, multi-document RAG, and long-running agent sessions**.
+
+---
+
+# 🧮 NVFP4 Quantization
+
+The released checkpoint uses NVIDIA's **NVFP4 post-training quantization** approach.
+
+The documented recipe includes:
+
+* Four Over Six NVFP4
+* Static MSE calibration
+* W4A16 for routed and shared experts
+* FP8 dynamic scaling for selected Mamba projections
+* FP8 dynamic scaling for KV cache
+* 1,000 calibration samples
+* 32K token calibration length
+
+These details are from the model's documented PTQ recipe.
+
+---
+
+# 🖥️ Hardware Compatibility
+
+The model is optimized for NVIDIA GPU-accelerated systems.
+
+### Supported Architectures
+
+| GPU Architecture     | Precision               |
+| -------------------- | ----------------------- |
+| **NVIDIA Blackwell** | NVFP4 / supported modes |
+| **NVIDIA Hopper**    | NVFP4 / W4A16           |
+| **NVIDIA Ampere**    | W4A16                   |
+
+The model specification explicitly lists Blackwell, Hopper, and Ampere compatibility under the corresponding precision configurations.
+
+### Tested Inference Stack
+
+```text
+Application
+     │
+     ▼
+┌───────────────┐
+│    Agent      │
+└───────┬───────┘
+        │
+        ▼
+┌───────────────┐
+│    vLLM       │
+└───────┬───────┘
+        │
+        ▼
+┌───────────────┐
+│   Dynamo      │
+└───────┬───────┘
+        │
+        ▼
+┌───────────────┐
+│ NVIDIA GPU    │
+│ H100 / etc.   │
+└───────────────┘
+```
+
+The documented inference acceleration stack is **Dynamo + vLLM**, with **NVIDIA Hopper H100** listed as test hardware.
+
+---
+
+# 🌍 Supported Languages
+
+The model supports:
+
+* 🇺🇸 English
+* 🇪🇸 Spanish
+* 🇫🇷 French
+* 🇩🇪 German
+* 🇮🇹 Italian
+* 🇯🇵 Japanese
+
+It is also trained across a substantially broader multilingual corpus and supports programming languages.
+
+---
+
+# ⚙️ Recommended Sampling
+
+For general inference:
+
+```text
+Temperature: 1.0
+Top-P:       0.95
+```
+
+These are the recommended sampling parameters in the supplied model specification.
+
+---
+
+# 🧩 Example Use Cases
+
+## 1. Software Engineering Agent
+
+```text
+GitHub Repository
+       │
+       ▼
+Code Understanding
+       │
+       ▼
+Issue Analysis
+       │
+       ▼
+Planning
+       │
+       ▼
+Code Generation
+       │
+       ▼
+Testing
+       │
+       ▼
+Validation
+       │
+       ▼
+Pull Request
+```
+
+## 2. RAG Agent
+
+```text
+Documents
+   │
+   ▼
+Embedding / Retrieval
+   │
+   ▼
+Long Context
+   │
+   ▼
+Nemotron
+   │
+   ▼
+Reasoning
+   │
+   ▼
+Grounded Answer
+```
+
+## 3. Multi-Agent System
+
+```text
+                    ┌───────────────┐
+                    │ Orchestrator  │
+                    └───────┬───────┘
+                            │
+          ┌─────────────────┼─────────────────┐
+          ▼                 ▼                 ▼
+     Research Agent    Coding Agent     Browser Agent
+          │                 │                 │
+          └─────────────────┼─────────────────┘
+                            ▼
+                    Nemotron Lightning
+                            │
+                            ▼
+                       Final Output
+```
+
+---
+
+# 🧪 Evaluation & Validation
+
+Large language models should be evaluated beyond simple accuracy.
+
+A production evaluation strategy should consider:
+
+```text
+                  MODEL EVALUATION
+                         │
+       ┌─────────────────┼─────────────────┐
+       ▼                 ▼                 ▼
+   Reasoning          Coding            Agentic
+       │                 │                 │
+       ▼                 ▼                 ▼
+   Knowledge         SWE Tasks         Tool Use
+       │                 │                 │
+       └─────────────────┼─────────────────┘
+                         ▼
+                   Long Context
+                         │
+                         ▼
+                  Safety / Quality
+                         │
+                         ▼
+                Production Validation
+```
+
+The supplied specification also emphasizes use-case-specific testing and iterative validation at both unit and system levels before deployment.
+
+---
+
+# 📸 Model Playground / UI
+
+## NVIDIA Nemotron Playground
+
+The following screenshots demonstrate the model interface and associated environment.
+
+<p align="center">
+<img width="1361" src="https://github.com/user-attachments/assets/7a34a4b2-de3b-46da-9309-f73c16e9847b">
+</p>
+
+<p align="center">
+<img width="1366" src="https://github.com/user-attachments/assets/352c342c-b699-4181-9847-06ead9f47fa3">
+</p>
+
+<p align="center">
+<img width="1360" src="https://github.com/user-attachments/assets/70c3bbbc-9e7e-433e-8c8c-e9861425de28">
+</p>
+
+---
+
+# 🔬 Research & Engineering Focus
+
+This model is especially relevant for research into:
+
+### Agentic AI
+
+* Autonomous planning
+* Tool use
+* Multi-agent orchestration
+* Long-running agent loops
+* Agent memory
+
+### Software Engineering AI
+
+* Code generation
+* Code review
+* Repository understanding
+* Automated debugging
+* Test generation
+* SWE agents
+
+### Long-Context AI
+
+* Repository-scale reasoning
+* Enterprise knowledge bases
+* Multi-document reasoning
+* Large RAG systems
+* Long-running conversations
+
+### Efficient Inference
+
+* Mixture-of-Experts routing
+* NVFP4 quantization
+* Multi-token prediction
+* Sparse activation
+* GPU-optimized serving
+
+---
+
+# 📌 Model Facts
+
+```text
+┌─────────────────────────────────────────┐
+│         NEMOTRON LIGHTNING 30B          │
+├─────────────────────────────────────────┤
+│ Total Parameters       : 30B            │
+│ Active Parameters      : 3B             │
+│ Context                : 1M Tokens      │
+│ Architecture           : Hybrid MoE     │
+│ Sequence Modeling      : Mamba-2        │
+│ Attention              : Transformer    │
+│ Prediction             : MTP            │
+│ Quantization           : NVFP4          │
+│ Runtime                : PyTorch        │
+│ Serving                : vLLM + Dynamo  │
+│ Primary Focus          : Agentic AI     │
+└─────────────────────────────────────────┘
+```
+
+---
+
+# 🗓️ Release Information
+
+| Field                    | Value              |
+| ------------------------ | ------------------ |
+| **Model Release**        | August 11, 2026    |
+| **Model Version**        | 1.0-preview        |
+| **Pre-training Cutoff**  | September 2025     |
+| **Post-training Cutoff** | May 2026           |
+| **Total Training Data**  | >20T tokens        |
+| **Developer**            | NVIDIA Corporation |
+
+## The supplied documentation lists the model version as **1.0-preview (08/11/2026)** and gives the respective pre-training and post-training data cutoffs.
+
+# 📜 License
+
+This model is governed by the:
+
+**OpenMDW License Agreement, Version 1.1**
+
+The supplied model documentation states that use of the model is governed by the OpenMDW License Agreement 1.1.
+
+> Always review the applicable NVIDIA license and terms before commercial or production deployment.
+
+---
+
+# 👨‍💻 Project / Documentation
+
+### Built, curated and documented by
+
+# **Harsha Vardhan Upadrasta**
+
+AI Automation Engineer • AI/ML Researcher • Agentic AI Enthusiast
+
+---
+
+# ⭐ Key Takeaways
+
+**Nemotron 3.5 Lightning 30B A3B NVFP4 brings together:**
+
+```text
+             30B Total Parameters
+                       │
+                       ▼
+                3B Active Params
+                       │
+                       ▼
+          ┌────────────────────────┐
+          │ Hybrid Architecture    │
+          │                        │
+          │ Mamba-2 + MoE +       │
+          │ Attention + MTP        │
+          └───────────┬────────────┘
+                      │
+                      ▼
+                1M Context
+                      │
+                      ▼
+              Agentic Intelligence
+                      │
+          ┌───────────┼───────────┐
+          ▼           ▼           ▼
+       Coding       RAG       Multi-Agent
+          │           │           │
+          └───────────┼───────────┘
+                      ▼
+              Efficient Inference
+                      │
+                      ▼
+                    NVFP4
+```
+
+> **A high-capacity model architecture designed to make large-scale reasoning and agentic workloads more efficient through sparse activation, hybrid sequence modeling, long-context capability, and optimized inference.**
+
+---
+
+<p align="center">
+
+### ⚡ NVIDIA Nemotron 3.5 Lightning
+
+### **30B Total • 3B Active • 1M Context • NVFP4**
+
+<br>
+
+**Developed / Curated by Harsha Vardhan Upadrasta**
+
+</p>
+
 
 <img width="1361" height="616" alt="image" src="https://github.com/user-attachments/assets/7a34a4b2-de3b-46da-9309-f73c16e9847b" />
 
